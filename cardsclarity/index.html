@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CardsClarity · Mark Leaf</title>
+<meta name="description" content="Case study: a credit card startup I co-founded, pivoted from cashback optimizer to review site, and shut down in 2025.">
+<meta property="og:title" content="CardsClarity · Mark Leaf">
+<meta property="og:description" content="A credit card startup I co-founded, pivoted from cashback optimizer to review site, and shut down in 2025.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍃</text></svg>">
+<link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+<script>try { if (localStorage.theme ? localStorage.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark') } catch (e) {}</script>
+<script src="/site.js" defer></script>
+<script type="speculationrules">{"prerender": [{"where": {"href_matches": "/*"}, "eagerness": "moderate"}]}</script>
+</head>
+<body>
+<main>
+<aside>
+  <a class="back" href="/"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5.5 4 1.5 8l4 4M1.5 8H10a2.5 2.5 0 0 0 0-5H8.5"/></svg> Index</a>
+  <nav><a href="#problem">Problem</a><a href="#decisions">Key decisions</a><a href="#results">Results</a><a href="#differently">What I'd do differently</a></nav>
+</aside>
+<article>
+  <header><h1>CardsClarity</h1><time>Feb 2024 – late 2025</time></header>
+  <p>CardsClarity started as a cashback optimizer and became a credit card review site.</p>
+  <dl class="facts">
+    <div><dt>Role</dt><dd>Co-founder and CTO. I led 6 engineers, built the front end and rebuilt the home page for the pivot.</dd></div>
+    <div><dt>Team</dt><dd>6 engineers</dd></div>
+    <div><dt>Status</dt><dd>Shut down in late 2025</dd></div>
+    <div><dt>Result</dt><dd>19,000 visitors. Finalist in the New York Business Plan Competition.</dd></div>
+  </dl>
+
+  <h2 id="problem">Problem</h2>
+  <figure>
+    <img src="calculator.webp" width="1100" height="600" loading="lazy" alt="Cashback calculator with its help note: the average cardholder earns 1 to 2% cashback, while issuer deals can pass 20%.">
+    <figcaption>The home page calculator and the note behind its estimate.</figcaption>
+  </figure>
+  <p>Every credit card pays a different rate on groceries, gas and travel, and annual fees change the math. By our estimate the average US cardholder earns 1 to 2% cashback, while the best issuer deals pass 20%.</p>
+  <p>The first version had 4 requirements:</p>
+  <ul>
+    <li>Tell users which of their cards pays the most for each purchase, and which new cards are worth getting.</li>
+    <li>No bank logins. Users add their cards by hand.</li>
+    <li>Never sell user data.</li>
+    <li>Rankings stay independent of card issuers.</li>
+  </ul>
+
+  <h2 id="decisions">Key decisions</h2>
+  <h3>Promised 4 tools before building one</h3>
+  <figure>
+    <div class="shots">
+      <img src="old-landing.webp" width="360" height="779" loading="lazy" alt="Original landing page reading Not enough cashback? Make daily purchases and earn cash, promising no bank logins and no data selling.">
+      <img src="old-tools.webp" width="360" height="779" loading="lazy" alt="Four planned tools, each marked coming soon: card reviews, a points-to-dollars converter, a cashback investment calculator and a card comparison tool.">
+    </div>
+    <figcaption>The original landing page and its planned tools.</figcaption>
+  </figure>
+  <p>I built the landing page, and we opened a beta waitlist in February 2024. The page promised 4 tools, all marked "coming soon".</p>
+
+  <h3>Prototyped a cashback wallet</h3>
+  <figure>
+    <div class="shots">
+      <img src="wallet.webp" width="360" height="779" loading="lazy" alt="Wallet prototype listing five cards ranked by cashback rate.">
+      <img src="cashback.webp" width="360" height="779" loading="lazy" alt="American Express Gold card page with cashback rates by category.">
+    </div>
+    <figcaption>Before the pivot: the wallet prototype and a card's cashback rates.</figcaption>
+  </figure>
+  <p>By July I had built a card rating table, a wallet prototype that ranked your own cards by cashback rate, and a page for each card.</p>
+
+  <h3>Pivoted from our algorithm to cardholder reviews</h3>
+  <figure>
+    <div class="shots">
+      <img src="search.webp" width="360" height="779" loading="lazy" alt="Card search showing matching cards as you type.">
+      <img src="card-reviews.webp" width="360" height="779" loading="lazy" alt="Cardholder reviews of the Capital One Venture Rewards card, with star ratings, titles and reply buttons.">
+    </div>
+    <figcaption>After the pivot: card search, and cardholder reviews on a card's page.</figcaption>
+  </figure>
+  <p>In October 2024 we pivoted to a credit card review site, where you search for a card, read its details and reviews, and rate it. Customer interviews pushed us there. People trusted reviews from other cardholders, the way they trust Yelp, more than our own ranking algorithm.</p>
+
+  <h3>Kept thinly reviewed cards off the top</h3>
+  <figure>
+    <div class="shots">
+      <img src="two-reviews.webp" width="360" height="779" loading="lazy" alt="Chase Sapphire Reserve page showing 5.0 stars based on 2 reviews.">
+      <img src="best-rated.webp" width="360" height="779" loading="lazy" alt="Home page with the search box and the Best Rated Card, Capital One Venture Rewards, at 4.6 stars from 42 reviews.">
+    </div>
+    <figcaption>A 5.0 card with 2 reviews, and the home page's best-rated pick, a 4.6 card with 42 reviews.</figcaption>
+  </figure>
+  <p>Each card's score was its average rating, pulled toward 2.5 stars as if it had 3 extra neutral reviews, so a card with 2 five-star reviews couldn't top the list.</p>
+
+  <h3>Bet on referral revenue</h3>
+  <figure>
+    <div class="shots">
+      <img src="unbiased-promise.webp" width="360" height="779" loading="lazy" alt="Original landing page section reading Unbiased card rankings: forget those shady affiliate sites, our rankings are 100% unbiased.">
+      <img src="apply.webp" width="360" height="779" loading="lazy" alt="Capital One Venture Rewards page with an Apply button above its 4.6-star rating from 42 reviews.">
+    </div>
+    <figcaption>The first landing page promised unbiased rankings, and the Apply button carried the referral link.</figcaption>
+  </figure>
+  <p>Revenue was meant to come from referral links on each card's Apply button. That was hard to reach, because banks only partner with sites that already have traction and the right connections.</p>
+
+  <h2 id="results">Results</h2>
+  <p>The site drew 19,000 visitors. CardsClarity was a finalist in the New York Business Plan Competition, and we pitched to investors through Blackstone LaunchPad.</p>
+
+  <h2 id="differently">What I'd do differently</h2>
+  <p>Referral revenue only pays at a scale we couldn't reach without bank partnerships, and banks don't partner until you have that scale. I shut CardsClarity down in late 2025, once that was clear.</p>
+  <p>We promised 4 tools on the landing page before validating any of them. Next time I'd validate the market positioning and the revenue model before building, and interview many more people, earlier.</p>
+  <p>Our positioning promised rankings free of issuer influence, but the only way to make money ran through issuer referral links.</p>
+  <p>A review site also has a cold-start problem. It's only useful after enough people have written reviews, and our ranking had to discount every card that had just a few.</p>
+</article>
+<nav class="pager" aria-label="Case studies"><a href="/rnef/" rel="prev">← RNEF Portfolio Management</a></nav>
+</main>
+</body>
+</html>

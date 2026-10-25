@@ -1,0 +1,203 @@
+@font-face { font-family: Inter; font-weight: 100 900; font-display: swap; src: url(inter.woff2) format("woff2"); }
+@font-face { font-family: Inter-fallback; src: local("Arial"); ascent-override: 90.2%; descent-override: 22.48%; line-gap-override: 0%; size-adjust: 107.4%; }
+@view-transition { navigation: auto; }
+
+:root {
+  color-scheme: light;
+  --bg: #fdfdfc;
+  --fg: #111;
+  --muted: rgba(0, 0, 0, .56);
+  --muted-hover: rgba(0, 0, 0, .8);
+  --line: #f2f2f2;
+  --rule: #ededed;
+  --underline: #d9d9d9;
+  --underline-hover: #666;
+  --bullet: #b3b3b3;
+  --thumb: rgba(0, 0, 0, .25);
+  --button: #fff;
+  --button-ring: rgba(0, 0, 0, .06);
+  --fade: linear-gradient(180deg, #fff 0, hsla(0,0%,100%,.738) 19%, hsla(0,0%,100%,.541) 34%, hsla(0,0%,100%,.382) 47%, hsla(0,0%,100%,.278) 56.5%, hsla(0,0%,100%,.194) 65%, hsla(0,0%,100%,.126) 73%, hsla(0,0%,100%,.075) 80.2%, hsla(0,0%,100%,.042) 86.1%, hsla(0,0%,100%,.021) 91%, hsla(0,0%,100%,.008) 95.2%, hsla(0,0%,100%,.002) 98.2%, hsla(0,0%,100%,0));
+}
+.dark {
+  color-scheme: dark;
+  --bg: #111110;
+  --fg: #ededec;
+  --muted: rgba(255, 255, 255, .52);
+  --muted-hover: rgba(255, 255, 255, .85);
+  --line: #222221;
+  --rule: #2a2a29;
+  --underline: #3d3d3c;
+  --underline-hover: #aaa;
+  --bullet: #5c5c5b;
+  --thumb: rgba(255, 255, 255, .25);
+  --button: #1c1c1b;
+  --button-ring: rgba(255, 255, 255, .08);
+  --fade: linear-gradient(180deg, #111110 0, hsla(60,3%,6%,.738) 19%, hsla(60,3%,6%,.541) 34%, hsla(60,3%,6%,.382) 47%, hsla(60,3%,6%,.278) 56.5%, hsla(60,3%,6%,.194) 65%, hsla(60,3%,6%,.126) 73%, hsla(60,3%,6%,.075) 80.2%, hsla(60,3%,6%,.042) 86.1%, hsla(60,3%,6%,.021) 91%, hsla(60,3%,6%,.008) 95.2%, hsla(60,3%,6%,.002) 98.2%, hsla(60,3%,6%,0));
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--bg); color: var(--fg); scroll-padding-top: 5.25rem; }
+body {
+  overflow-y: scroll;
+  font: 16px Inter, Inter-fallback, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+::selection { color: var(--fg); background: var(--rule); }
+:focus-visible { outline: 2px solid rgba(0, 122, 255, .5); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: transparent; border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: var(--thumb); }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+h1, h2, h3 { font-size: .875rem; line-height: normal; letter-spacing: -.00563rem; }
+
+main { padding: 5rem 1rem 2.5rem; max-width: 36.375rem; margin: 0 auto; }
+main::before { content: ""; pointer-events: none; z-index: 9; position: fixed; top: 0; left: 0; right: 0; height: 8rem; background: var(--fade); }
+@media (max-width: 768px) {
+  main { padding: 2rem 1.5rem 2.5rem; }
+  main::before { height: 2.5rem; }
+}
+
+/* Article text, shared by the home page and project pages */
+article { max-width: 70ch; }
+header { display: flex; flex-direction: column; gap: .25rem; padding-bottom: .5rem; }
+header h1, header time { font-size: .875rem; line-height: 1.25rem; letter-spacing: -.00563rem; }
+header h1 { font-weight: 500; }
+header time, .list h3, .list span, .list li::before, footer p { color: var(--muted); font-weight: 460; }
+article p, article li { font-size: .875rem; font-weight: 460; line-height: 1.25rem; letter-spacing: -.00563rem; }
+article p { padding-top: 1rem; }
+article h2 { padding-top: 2.25rem; font-weight: 560; line-height: 1.25rem; }
+article h3 { padding-top: 1.75rem; font-weight: 500; line-height: 1.25rem; }
+article h2 + h3 { padding-top: 1rem; }
+
+/* Project summary under the page title: label column echoes the home list's year column */
+.facts { margin-top: 1rem; border-top: 1px solid var(--line); }
+.facts div { display: grid; grid-template-columns: 6.75rem 1fr; gap: 1rem; padding: .5rem 0; border-bottom: 1px solid var(--line); font-size: .875rem; font-weight: 460; line-height: 1.25rem; letter-spacing: -.00563rem; }
+.facts dt { color: var(--muted); }
+.facts dd { font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) { .facts div { grid-template-columns: 4.5rem 1fr; } }
+
+/* Previous / next case study */
+.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding: 1rem 0 2.5rem; border-top: 1px solid var(--line); font-size: .875rem; font-weight: 460; letter-spacing: -.00563rem; }
+.pager a { padding: .5rem 0; color: var(--muted); transition: color .1s ease; }
+.pager a:hover { color: var(--muted-hover); }
+.pager a:only-child[rel="next"] { margin-left: auto; }
+article > ul { padding: 1rem 0 0 1.25rem; }
+article > ul li { position: relative; padding: 0 0 .5rem .75rem; }
+article > ul li:last-child { padding-bottom: 0; }
+article > ul li::before { content: ""; position: absolute; right: 100%; top: .675em; width: .25rem; height: .25rem; border-radius: 50%; background: var(--bullet); }
+figure { padding-top: 1rem; }
+figure img { display: block; width: 100%; height: auto; border-radius: .5rem; box-shadow: 0 0 0 1px var(--line); }
+figcaption { padding: .75rem 2rem 0; color: var(--muted); text-align: center; font-size: .75rem; font-weight: 460; letter-spacing: .00063rem; text-wrap: balance; }
+/* Phone screens sit two to a row on a hairline panel, as on benji.org/honkish */
+.shots { display: flex; justify-content: center; gap: 1rem; padding: 2rem; border-radius: .5rem; box-shadow: inset 0 0 0 1px var(--line); }
+.shots img { flex: 1; min-width: 0; max-width: 11.25rem; border-radius: .75rem; box-shadow: none; }
+@media (max-width: 520px) { .shots { padding: 1rem; gap: .75rem; } }
+
+/* Click a screenshot to see it larger (see site.js) */
+figure img { cursor: zoom-in; }
+.zoom { margin: auto; padding: 0; border: 0; background: none; max-width: 95vw; max-height: 95vh; overflow: visible; }
+.zoom::backdrop { background: rgba(0, 0, 0, .7); }
+.zoom img { display: block; max-width: 95vw; max-height: 95vh; width: auto; height: auto; border-radius: .75rem; cursor: zoom-out; }
+article a { position: relative; transition: all .2s ease; }
+article a::before { content: ""; pointer-events: none; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; border-radius: 2px; background: var(--underline); transition: inherit; }
+article a:hover::before { background: var(--underline-hover); }
+
+/* Project pages: back link and section index, pinned left on wide screens */
+aside { position: fixed; top: 5rem; left: 5rem; }
+aside nav { display: flex; flex-direction: column; gap: .625rem; max-width: 10rem; padding-top: 1.875rem; }
+aside nav a { color: var(--muted); font-size: .8125rem; font-weight: 460; line-height: 1.2; letter-spacing: -.0025rem; transition: color .1s ease; }
+aside nav a:hover { color: var(--muted-hover); }
+.back { display: flex; align-items: center; gap: .25rem; padding: .25rem 0; color: var(--muted); font-size: .875rem; font-weight: 460; line-height: 1.25rem; letter-spacing: -.00563rem; transition: color .1s ease; }
+.back:hover { color: var(--muted-hover); }
+@media (max-width: 1080px) {
+  aside { position: static; padding-bottom: 2rem; }
+  aside nav { display: none; }
+}
+
+/* Home page lists */
+.list { --indent: 6.75rem; padding-top: 3rem; }
+.list h3 { padding-bottom: .5rem; border-bottom: 1px solid var(--line); }
+.list > ul > li { position: relative; border-bottom: 1px solid var(--line); }
+.list > ul > li:last-child { border-bottom: none; }
+.list > ul > li::before { content: attr(data-year); position: absolute; left: 0; top: .735rem; font-size: .875rem; letter-spacing: -.00563rem; }
+.list :is(a, summary) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .735rem 0 .735rem var(--indent); }
+.list [data-year] > ul > li { position: relative; }
+.list [data-year] > ul > li:not(:last-child) { background: linear-gradient(var(--line), var(--line)) no-repeat right bottom / calc(100% - var(--indent)) 1px; }
+.list h2 { font-weight: 460; transition: opacity .14s ease; }
+.list span { font-size: .875rem; letter-spacing: -.00563rem; text-align: right; transition: opacity .14s ease; }
+/* Dim the other rows while one is hovered */
+@media (min-width: 520px) {
+  .list > ul:has(:is(a[href], summary):hover) :is(a, summary):not(:hover) :is(h2, span) { opacity: .3; }
+}
+@media (max-width: 520px) { .list { --indent: 3rem; } }/* Work rows open to show what I did in each role (native <details>) */
+.list summary { cursor: pointer; list-style: none; }
+.list summary::-webkit-details-marker { display: none; }
+.list details ul { padding: 0 0 .25rem var(--indent); }
+.list details li { position: relative; padding-bottom: .5rem; font-size: .875rem; font-weight: 460; line-height: 1.25rem; letter-spacing: -.00563rem; }
+.list details li::before { content: ""; position: absolute; left: -.75rem; top: .5rem; width: .25rem; height: .25rem; border-radius: 50%; background: var(--bullet); }
+@media (prefers-reduced-motion: no-preference) {
+  .list details { interpolate-size: allow-keywords; }
+  .list details::details-content { height: 0; overflow: clip; transition: height .25s ease, content-visibility .25s allow-discrete; }
+  .list details[open]::details-content { height: auto; }
+}
+
+footer { padding: 2.5rem 0 5rem; }
+footer::before { content: ""; display: block; height: 1px; width: 3.125rem; background: var(--rule); margin-bottom: 2.375rem; }
+footer p { font-size: .8125rem; letter-spacing: -.0025rem; font-variant-numeric: tabular-nums; }
+footer svg { display: inline-block; vertical-align: bottom; margin-bottom: -6px; overflow: visible; }
+/* Wind on a 12s loop: two small rustles, then a gust that overshoots and settles */
+.leaf { transform-origin: 5px 19px; animation: rustle 12s ease-in-out infinite; }
+@keyframes rustle {
+  0%, 8% { transform: rotate(0); }
+  11% { transform: rotate(-6deg); }
+  14% { transform: rotate(2deg); }
+  17%, 38% { transform: rotate(0); }
+  41% { transform: rotate(-4deg); }
+  44% { transform: rotate(-1deg); }
+  47% { transform: rotate(-5deg); }
+  51%, 62% { transform: rotate(0); }
+  66% { transform: rotate(-22deg); }
+  70% { transform: rotate(-16deg); }
+  73% { transform: rotate(-20deg); }
+  79% { transform: rotate(5deg); }
+  84% { transform: rotate(-2deg); }
+  88%, 100% { transform: rotate(0); }
+}
+
+/* Theme toggle top right, back-to-top bottom right (see site.js) */
+.theme-toggle, .to-top {
+  position: fixed; right: 1.25rem; z-index: 10;
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--button); color: var(--muted);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .04), inset 0 0 0 1px var(--button-ring);
+  transition: color .15s ease, transform .15s ease, opacity .2s ease, visibility .2s;
+}
+.theme-toggle { top: 1.25rem; }
+.to-top { bottom: 1.25rem; opacity: 0; visibility: hidden; }
+.to-top.show { opacity: 1; visibility: visible; }
+:is(.theme-toggle, .to-top):hover { color: var(--muted-hover); transform: scale(1.05); }
+:is(.theme-toggle, .to-top):active { transform: scale(.95); }
+html.theme-switch::view-transition-old(root),
+html.theme-switch::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+/* Entrance: home on the first visit per tab (see the script in index.html),
+   project pages on every open (site.js replays it for prerendered pages) */
+@keyframes staggerIn { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.home-visited) .home :is(article > *, section, footer),
+  main:not(.home) :is(aside, article > *, .pager) { animation: staggerIn .5s ease both; }
+  article > :nth-child(2) { animation-delay: .05s; }
+  article > :nth-child(3) { animation-delay: .1s; }
+  article > :nth-child(4) { animation-delay: .15s; }
+  article > :nth-child(5) { animation-delay: .2s; }
+  main:not(.home) :is(article > :nth-child(n+6), .pager) { animation-delay: .25s; }
+  .home section { animation-delay: .45s; }
+  .home section + section { animation-delay: .5s; }
+  .home footer { animation-delay: .55s; }
+}
+@media (prefers-reduced-motion: reduce) { .leaf { animation: none; } }

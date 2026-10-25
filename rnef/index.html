@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RNEF Portfolio Management · Mark Leaf</title>
+<meta name="description" content="Case study: leading 4 developers to ship a backtesting tool for the Rice Renewable Energy Fund, 7 weeks after the PRD.">
+<meta property="og:title" content="RNEF Portfolio Management · Mark Leaf">
+<meta property="og:description" content="Leading 4 developers to ship a backtesting tool for the Rice Renewable Energy Fund, 7 weeks after the PRD.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍃</text></svg>">
+<link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+<script>try { if (localStorage.theme ? localStorage.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark') } catch (e) {}</script>
+<script src="/site.js" defer></script>
+<script type="speculationrules">{"prerender": [{"where": {"href_matches": "/*"}, "eagerness": "moderate"}]}</script>
+</head>
+<body>
+<main>
+<aside>
+  <a class="back" href="/"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5.5 4 1.5 8l4 4M1.5 8H10a2.5 2.5 0 0 0 0-5H8.5"/></svg> Index</a>
+  <nav><a href="#problem">Problem</a><a href="#decisions">Key decisions</a><a href="#results">Results</a><a href="#differently">What I'd do differently</a></nav>
+</aside>
+<article>
+  <header><h1>RNEF Portfolio Management</h1><time>Jan – May 2026</time></header>
+  <p>A backtesting tool for the Rice Renewable Energy Fund, a student-run fund with about $200K under management.</p>
+  <dl class="facts">
+    <div><dt>Role</dt><dd>Project lead. I wrote the PRD and roadmap, built most of the UI and rewrote the backtest engine.</dd></div>
+    <div><dt>Team</dt><dd>4 developers, through Rice INFORMS</dd></div>
+    <div><dt>Status</dt><dd><a href="https://rnef-informs.vercel.app" target="_blank" rel="noopener noreferrer">Live</a> and in use by the fund</dd></div>
+    <div><dt>Result</dt><dd>Shipped in April 2026, 7 weeks after the PRD</dd></div>
+  </dl>
+
+  <h2 id="problem">Problem</h2>
+  <p>The fund ran on one Excel workbook tied to FactSet. Outside FactSet, the position-sizing sheet broke with #NAME? errors, and checking a stop-loss meant opening the file.</p>
+  <p>Since October 2022 the fund was up 3.10%, while its benchmark, the ICLN clean energy ETF, was down 3.24%. But 44% of the money sat in cash and a money-market fund, and there was no process for building or rebalancing the portfolio. We wanted to know whether the fund was beating its benchmark mostly by being barely invested.</p>
+  <p>I wrote the requirements from an audit of the fund's spreadsheet and from conversations with fund members. The PRD listed 17 modules, each ranked core, high or stretch, with an owner and an effort estimate. My roadmap had 4 phases, and each one ended with a check, such as our numbers matching Excel within 0.5%.</p>
+  <p>The tool had to:</p>
+  <ul>
+    <li>Compare portfolio strategies against the fund's real returns and against ICLN.</li>
+    <li>Use live market prices and the fund's own list of stocks.</li>
+    <li>Sit beside the Excel tracker and only read from it.</li>
+    <li>Run in a browser with nothing to install.</li>
+  </ul>
+
+  <h2 id="decisions">Key decisions</h2>
+  <h3>Cut 5 pages to one backtesting tool</h3>
+  <figure>
+    <img src="dashboard.webp" width="1100" height="775" loading="lazy" alt="Dashboard with portfolio value, return against ICLN, Sharpe ratio, max drawdown, the stock universe and a holdings table.">
+    <figcaption>The one screen kept from the 5-page plan.</figcaption>
+  </figure>
+  <p>With 4 developers and one semester, I cut the scope from a 5-page analytics suite to a backtesting tool. The plan had pages for an overview, optimization, backtesting, risk and benchmarking. I dropped the risk dashboards, stress tests and performance attribution, and put the fund's headline numbers and holdings on one dashboard screen.</p>
+
+  <h3>Moved the backend into the web app</h3>
+  <figure>
+    <img src="builder.webp" width="1100" height="797" loading="lazy" alt="Backtest form with five strategies, a ticker universe, date range, rebalancing frequency and transaction cost.">
+    <figcaption>Setting up a backtest.</figcaption>
+  </figure>
+  <p>A backtest takes a strategy, a set of stocks, a date range, a rebalancing schedule and a trading cost, then runs on live market prices. In April the separate Python backend kept failing to fetch those prices. I rewrote it inside the web app, so the whole tool deployed in one place with no second server to keep alive.</p>
+  <p>Our hosting plan's free tier wouldn't let me add teammates, so I set up automatic preview deployments for their pull requests.</p>
+
+  <h3>Shipped a print button instead of a PDF report</h3>
+  <figure>
+    <img src="library.webp" width="1100" height="485" loading="lazy" alt="Strategy library with five saved runs, each showing its Sharpe ratio and annual return.">
+    <figcaption>Past runs in the strategy library.</figcaption>
+  </figure>
+  <p>Every run is saved to a strategy library, where it can be reopened or run again. A full PDF report was on the backlog. I shipped a print-to-PDF button instead and left the full report as an open issue.</p>
+
+  <h2 id="results">Results</h2>
+  <figure>
+    <img src="results.webp" width="1100" height="679" loading="lazy" alt="Backtest results with Sharpe ratio, annual return, max drawdown and Calmar ratio above an equity curve that compares a max-Sharpe portfolio with ICLN.">
+    <figcaption>A max-Sharpe run against ICLN.</figcaption>
+  </figure>
+  <p>The tool shipped in April 2026, 7 weeks after the PRD, and the fund still uses it. It tests 5 strategies on the fund's stocks and compares each one with the fund's actual returns and with ICLN. The runs in these screenshots use the fund's 10 stocks from October 2022 to October 2026, monthly rebalancing and no trading costs.</p>
+  <figure>
+    <img src="holdings.webp" width="1100" height="532" loading="lazy" alt="Holdings breakdown for a $100,000 portfolio: 40% CEG, 37.4% NEE and 22.6% FSLR, with share counts, and the other seven stocks at zero.">
+    <figcaption>Strategy weights turned into share counts for a $100,000 portfolio.</figcaption>
+  </figure>
+  <p>The holdings view turns a strategy's weights into share counts for any portfolio size, so a result maps straight to trades. With only 10 stocks to choose from, max-Sharpe put everything into 3 of them in this run, with the largest at the 40% cap.</p>
+  <figure>
+    <img src="drawdown.webp" width="1100" height="234" loading="lazy" alt="Drawdown chart for the max-Sharpe portfolio from October 2022 to October 2026, with the deepest fall of about 31% in April 2025.">
+    <figcaption>Drawdown for the same run.</figcaption>
+  </figure>
+  <p>In our final report, a max-Sharpe portfolio of the same stocks had a Sharpe ratio of 1.20 over the fund's history, against −0.28 for the fund and −0.02 for ICLN. Those numbers are in-sample, so they flatter every strategy. The run in the charts above still fell 31% from its peak in April 2025.</p>
+  <p>Most of the fund's 6.34-point lead over ICLN came from holding cash. The same stocks, fully invested in a max-Sharpe portfolio, would have ended about 150 points above the fund. That figure is an upper bound, since it also includes better weights and look-ahead bias.</p>
+
+  <h2 id="differently">What I'd do differently</h2>
+  <p>Walk-forward testing never got past a toggle in the UI, so every Sharpe ratio above carries look-ahead bias. I'd build it before adding a single strategy.</p>
+  <p>Results are saved in each person's browser, which means fund members can't share a backtest with each other. I'd store them on a server from the start.</p>
+</article>
+<nav class="pager" aria-label="Case studies"><a href="/twonight/" rel="prev">← Twonight</a><a href="/cardsclarity/" rel="next">CardsClarity →</a></nav>
+</main>
+</body>
+</html>

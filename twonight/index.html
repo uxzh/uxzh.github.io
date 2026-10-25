@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twonight · Mark Leaf</title>
+<meta name="description" content="Case study: a couples movie app I built solo and launched on iOS and Android. 26% day-7 retention across 100+ users.">
+<meta property="og:title" content="Twonight · Mark Leaf">
+<meta property="og:description" content="A couples movie app I built solo and launched on iOS and Android. 26% day-7 retention across 100+ users.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍃</text></svg>">
+<link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+<script>try { if (localStorage.theme ? localStorage.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark') } catch (e) {}</script>
+<script src="/site.js" defer></script>
+<script type="speculationrules">{"prerender": [{"where": {"href_matches": "/*"}, "eagerness": "moderate"}]}</script>
+</head>
+<body>
+<main>
+<aside>
+  <a class="back" href="/"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5.5 4 1.5 8l4 4M1.5 8H10a2.5 2.5 0 0 0 0-5H8.5"/></svg> Index</a>
+  <nav><a href="#problem">Problem</a><a href="#decisions">Key decisions</a><a href="#results">Results</a><a href="#differently">What I'd do differently</a></nav>
+</aside>
+<article>
+  <header><h1>Twonight</h1><time>Jul 2026 – present</time></header>
+  <p><a href="https://twonight.app" target="_blank" rel="noopener noreferrer">Twonight</a> is a movie app for couples with a shared watchlist, a question for each partner after every film, and a history of what you've watched together.</p>
+  <dl class="facts">
+    <div><dt>Role</dt><dd>Solo founder. I designed, built and shipped it.</dd></div>
+    <div><dt>Status</dt><dd>Live on the <a href="https://apps.apple.com/app/twonight-couples-movie-night/id6788429757" target="_blank" rel="noopener noreferrer">App Store</a> and <a href="https://play.google.com/store/apps/details?id=app.twonight" target="_blank" rel="noopener noreferrer">Google Play</a></dd></div>
+    <div><dt>Result</dt><dd>26% day-7 retention across 100+ organic users, as of Sep 2026</dd></div>
+    <div><dt>Scale</dt><dd>262 monthly users, $0 spent on marketing</dd></div>
+  </dl>
+
+  <h2 id="problem">Problem</h2>
+  <figure>
+    <div class="shots">
+      <img src="google-doc.webp" width="402" height="874" loading="lazy" alt="Google Doc checklist of films with release years, with the watched ones checked off and struck through.">
+      <img src="ourfilms.webp" width="402" height="874" loading="lazy" alt="The first OurFilms build's Watched list, with His picks and Her picks filters and 14 films.">
+    </div>
+    <figcaption>The Google Doc we tracked films in, and OurFilms in April 2026.</figcaption>
+  </figure>
+  <p>My girlfriend and I were long distance, and watching movies was how we spent time together. We tracked every film in a Google Doc. Keeping it current took real effort, and the doc couldn't help us choose what to watch next.</p>
+  <p>I built a private app for the two of us and called it OurFilms. When I interviewed friends to improve the UI, several asked to use it with their own partners. That was my first evidence that other couples had the same problem, and it's why Twonight is public.</p>
+  <figure>
+    <div class="shots">
+      <img src="invite-qr.webp" width="360" height="779" loading="lazy" alt="Invite screen titled One link, two phones, with a QR code, an invite link and a six-character code.">
+      <img src="invite-waiting.webp" width="360" height="779" loading="lazy" alt="Screen reading Noa is next, which promises to say the moment Noa joins and confirms the picks and pact are saved.">
+    </div>
+    <figcaption>Inviting a partner with a link or QR code, then waiting for them to join.</figcaption>
+  </figure>
+  <p>I interviewed 15 users before settling the scope. Long-distance couples were the core segment, so I repositioned the app around them. My success metric was the share of couples who log a movie every week.</p>
+  <p>The app also had to meet these constraints:</p>
+  <ul>
+    <li>Exactly two people share a space.</li>
+    <li>One partner can start alone and invite the other later with a link or a QR code.</li>
+    <li>Answers stay hidden until both partners reply.</li>
+    <li>One subscription covers both partners.</li>
+    <li>No passwords. Sign-in is Google, Apple or an email link.</li>
+    <li>The free tier works on its own, with 5 debriefs a month and a capped watchlist.</li>
+  </ul>
+
+  <h2 id="decisions">Key decisions</h2>
+  <h3>Built the debrief on a Rochester study</h3>
+  <figure>
+    <div class="shots">
+      <img src="study.webp" width="360" height="779" loading="lazy" alt="Onboarding screen headed Couples who talk about movies last longer, with the chance of splitting within 3 years at 24% for most couples and 11% for couples who watch and talk about films.">
+      <img src="debrief-question.webp" width="360" height="779" loading="lazy" alt="Debrief question for Past Lives asking how it left you and how you think it hit your partner.">
+    </div>
+    <figcaption>The study's numbers in onboarding, and a debrief question for Past Lives.</figcaption>
+  </figure>
+  <p>A University of Rochester study followed 174 newlywed couples for 3 years. Couples who watched about 5 relationship films in a month and talked about each one afterward divorced or separated at 11%, against 24% for couples who got no program. Two therapist-led programs of about 20 hours each got the same 11%.</p>
+  <p>I built the first question feature on that study. In April, OurFilms showed a discussion prompt after you rated a film, and in June the debrief replaced those prompts. Since July, onboarding has a screen with the study's numbers.</p>
+
+  <h3>One question set per film</h3>
+  <figure>
+    <div class="shots">
+      <img src="answer-sealed.webp" width="360" height="779" loading="lazy" alt="Debrief answer saved, with the partner's answer still waiting and a Nudge button.">
+      <img src="debrief-revealed.webp" width="360" height="779" loading="lazy" alt="Both partners' answers shown side by side after both replied.">
+    </div>
+    <figcaption>An answer sealed until the partner replies, and a revealed pair of answers.</figcaption>
+  </figure>
+  <p>I generate debrief questions once per film, fitted to 5 relationship phases, and every couple who watches that film gets the same set. Generating them per couple would have made the cost grow with every new couple, while per-film generation keeps it flat.</p>
+  <p>On July 27 I noticed that relationship-heavy questions were wearing couples out, so the deck now opens with lighter, playful ones.</p>
+
+  <h3>Swapped the AI recommender for collaborative filtering</h3>
+  <p>My first recommender used LLM embeddings. It covered only 154 of 1,998 films and suggested Robot Dreams to a couple who never watch animation.</p>
+  <p>I replaced it with collaborative filtering over TMDb's related-films data, plus a filter for weak films and a rule that keeps the picks varied. A trained model comes later, once about 50 couples have rated films.</p>
+
+  <h3>Replaced the Collection tab with Milestones</h3>
+  <figure>
+    <div class="shots">
+      <img src="milestones-wall.webp" width="360" height="779" loading="lazy" alt="Milestones tab for a demo couple, with progress toward 50 films, Your Reel, an Oscar Best Picture bucket list at 6 of 96, and the milestones closest to earning.">
+      <img src="milestones-reel.webp" width="360" height="779" loading="lazy" alt="Your Reel for Alex and Noa, counting 26 films, 56 hours, 22 directors and 6 countries.">
+    </div>
+    <figcaption>The Milestones tab and Your Reel, with demo data.</figcaption>
+  </figure>
+  <p>In June, Milestones replaced the Collection tab. Each card's art shows its goal and fills in with progress. The streak card lights a flame for each movie night, and the horror card opens a pair of eyes for each scary film you finish.</p>
+  <p>Couples can also track bucket lists, such as the IMDb Top 250 or every Oscar Best Picture winner, and a page called Your Reel totals their films, hours and directors. In July I added 30 more milestones, including seasonal ones like Spooky Season and a One Year of Us anniversary.</p>
+
+  <h3>Moved signup after the first watchlist</h3>
+  <figure>
+    <div class="shots">
+      <img src="ob-old-marketing.webp" width="360" height="779" loading="lazy" alt="Old onboarding screen 3 of 15, One shared watchlist, describing the watchlist before any signup.">
+      <img src="ob-old-signup.webp" width="360" height="779" loading="lazy" alt="Old onboarding step 9 of 15, Create your account, with Google and an email link.">
+    </div>
+    <figcaption>Before: a marketing screen, then the signup wall at step 9 of 15.</figcaption>
+  </figure>
+  <p>The first onboarding was 15 linear steps, and 7 of them were marketing screens shown before signup. People read about the app instead of using it.</p>
+  <figure>
+    <div class="shots">
+      <img src="ob-arrival.webp" width="360" height="779" loading="lazy" alt="Welcome screen with the Twonight logo over film posters, reading What should we watch tonight? Solved for good.">
+      <img src="ob-question.webp" width="360" height="779" loading="lazy" alt="Question asking where movie night goes sideways, with Endless scrolling, One person always picks and We miss new episodes selected.">
+    </div>
+    <figcaption>After: the welcome screen, and a question about what goes wrong on movie night.</figcaption>
+  </figure>
+  <p>In June I rebuilt it so people try the app first, with a target of a solo "aha" in under 3 minutes. A month later it grew into a quiz of up to 27 screens about how the two of you watch.</p>
+  <figure>
+    <div class="shots">
+      <img src="ob-add.webp" width="360" height="779" loading="lazy" alt="Screen headed Almost there. Pick 3 you both loved, with a poster grid and 3 films selected.">
+      <img src="ob-reveal.webp" width="360" height="779" loading="lazy" alt="Reveal for Alex and Noa naming them The Scroll Loopers, with Eternal Sunshine of the Spotless Mind as tonight's pick.">
+    </div>
+    <figcaption>Picking 3 films you both loved, then the reveal with tonight's pick.</figcaption>
+  </figure>
+  <p>Near the end you pick 3 films you both loved. The reveal then names your couple type and lines up tonight's film and the next one, all before you make an account.</p>
+  <figure>
+    <div class="shots">
+      <img src="ob-auth.webp" width="360" height="779" loading="lazy" alt="Sign-up sheet titled Keep what you built, with Google and email buttons.">
+      <img src="ob-pact.webp" width="360" height="779" loading="lazy" alt="Pact screen titled Your movie-night promise, with the fingerprint filled red and the word Sealed.">
+    </div>
+    <figcaption>Signing up to keep what you built, then the pact you hold to seal.</figcaption>
+  </figure>
+  <p>Signup comes after that, once you have something you'd lose by leaving. Then you send your partner the invite and hold a fingerprint to make the pact.</p>
+  <p>Only 32% of the people who start onboarding reach the reveal (22 of 68).</p>
+  <p>On August 4 I started an A/B test of a shorter variant without the 8 screens that collect no answers. At about 5 onboarding starts a day, the test fills slowly and has no result yet.</p>
+  <p>In the next version, still only a design, nothing the user makes disappears. Right now the pact is saved and then never shown again.</p>
+
+  <h3>Raised the price and cut the paywall step</h3>
+  <figure>
+    <div class="shots">
+      <img src="paywall-step.webp" width="360" height="779" loading="lazy" alt="Onboarding plan step reading Your first two weeks are on us, with a 14-day trial and yearly $69.99 or monthly $7.99 plans.">
+      <img src="paywall-plans.webp" width="360" height="779" loading="lazy" alt="Plan cards: yearly billed $69.99 with 14 days free, and monthly billed $7.99.">
+    </div>
+    <figcaption>The plan step I cut from onboarding in July, and the paywall's plans today.</figcaption>
+  </figure>
+  <p>My first plan was $49.99 a year with a 7-day trial at pairing. I launched at $69.99 a year or $7.99 a month, with a 14-day store trial on the yearly plan only, and cut the paywall step from onboarding. If a couple splits, the subscription stays with whoever paid.</p>
+
+  <h3>Resubmitted after an App Store rejection</h3>
+  <p>Apple rejected the first submission. I hadn't known that a version and its in-app purchases must go to review together. After a resubmission it went live on July 24.</p>
+  <p>I chose App Store keywords by autocomplete demand and by how many ratings the top apps for each phrase had, looking for phrases a new app could rank for.</p>
+
+  <h2 id="results">Results</h2>
+  <p>As of September 2026, day-7 retention is 26% across 100+ organic users, with $0 spent on marketing. For comparison, OneSignal's 2024 benchmarks, <a href="https://getstream.io/blog/app-retention-guide/" target="_blank" rel="noopener noreferrer">as summarized by GetStream</a>, put entertainment apps at about 18% on day 7. 262 people used the app in the month to September 10.</p>
+  <p>The App Store funnel for the first 11 days, with Apple Search Ads running on free credits:</p>
+  <ul>
+    <li>4,730 impressions</li>
+    <li>147 product page views (3.1%)</li>
+    <li>35 installs (24%)</li>
+    <li>14 accounts (40%)</li>
+  </ul>
+  <p>Two numbers are still weak. Only 8 of 19 couples had ever paired (42%), and just 32% of people who start onboarding reach the reveal.</p>
+  <h3>Timeline</h3>
+  <ul>
+    <li>Apr 2026: first commit, still called OurFilms.</li>
+    <li>May 2026: closed beta.</li>
+    <li>Jun 4, 2026: open signup.</li>
+    <li>Jul 24, 2026: live on the App Store.</li>
+    <li>Aug 4, 2026: onboarding A/B test starts.</li>
+    <li>Sep 11, 2026: live on Google Play.</li>
+  </ul>
+
+  <h2 id="differently">What I'd do differently</h2>
+  <figure>
+    <div class="shots">
+      <img src="partner-welcome.webp" width="360" height="779" loading="lazy" alt="Invited partner's welcome reading Alex saved you a seat, with an Add my side button.">
+      <img src="partner-shelf.webp" width="360" height="779" loading="lazy" alt="Invited partner's screen headed Your turn. Pick 3 you love, with a poster grid and 3 films picked.">
+    </div>
+    <figcaption>What the invited partner sees after joining: a saved seat, then 3 films to pick.</figcaption>
+  </figure>
+  <p>Fewer than half of couples ever get both partners into the app, so I'd treat pairing as the activation metric from day one.</p>
+  <p>For 14 days PostHog recorded 2 signups while about 15 real accounts were created. Next time I'd check analytics against the database before trusting a chart.</p>
+  <p>A SQL bug broke debriefs for months. Email sign-in also never worked inside the native app, and nobody noticed because Google sign-in still worked. I'd set up alerts at launch instead of waiting for someone to spot a broken feature.</p>
+</article>
+<nav class="pager" aria-label="Case studies"><a href="/rnef/" rel="next">RNEF Portfolio Management →</a></nav>
+</main>
+</body>
+</html>
